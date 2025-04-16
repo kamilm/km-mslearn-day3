@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  job1:
+  linting:
     name: linting
     runs-on: ubuntu-latest
     steps:
@@ -17,17 +17,21 @@ jobs:
     - name: update pip
       run: |
         python -m pip install --upgrade pip
-    - name: Install pyTest via Requirements.txt
-      run: |
-        python -m pip install -r requirements.txt
-    - name: Run pyTest
-      run: |
-        pytest tests/
     - name: Install Flake8
       run: |
         python -m pip install flake8
     - name: Run linting tests
       run: | 
         flake8 src/model/
+  pytest:
+    name: pytest
+    needs: [linting]
+    steps:
+    - name: Install pyTest via Requirements.txt
+      run: |
+        python -m pip install -r requirements.txt
+    - name: Run pyTest
+      run: |
+        pytest tests/
 
 

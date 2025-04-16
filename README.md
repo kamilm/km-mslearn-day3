@@ -1,0 +1,1 @@
+this is Day 3 of our Azure ML training. 
